@@ -1,8 +1,12 @@
 FROM rust as builder
 WORKDIR /usr/src/greenring
 COPY . .
-RUN cargo install --path .
+RUN cargo build --release
 
-FROM busybox
-COPY --from=builder /usr/local/cargo/bin/greenring /usr/local/bin/greenring
-CMD ["greenring"]
+
+FROM debian:buster-slim
+RUN mkdir /app
+WORKDIR ${APP}
+EXPOSE 8080
+COPY --from=builder /usr/src/greenring/target/release/greenring /app/greenring
+CMD ["/greenring"]
