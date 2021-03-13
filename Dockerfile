@@ -3,10 +3,9 @@ WORKDIR /usr/src/greenring
 COPY . .
 RUN cargo build --release
 
-
-FROM debian:buster-slim
+FROM debian:buster
 RUN mkdir /app
 WORKDIR /app
-ENV PORT=8080
+ENV PORT=8080 RUST_LOG=info RUST_BACKTRACE=1
 COPY --from=builder /usr/src/greenring/target/release/greenring /app/greenring
 CMD ["/app/greenring"]
