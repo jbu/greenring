@@ -9,4 +9,4 @@ RUN mkdir /app
 WORKDIR /app
 EXPOSE 8080
 COPY --from=builder /usr/src/greenring/target/release/greenring /app/greenring
-CMD ["/greenring"]
+CMD ["/app/greenring"]
