@@ -6,7 +6,7 @@ RUN cargo build --release
 
 FROM debian:buster-slim
 RUN mkdir /app
-WORKDIR ${APP}
+WORKDIR /app
 EXPOSE 8080
 COPY --from=builder /usr/src/greenring/target/release/greenring /app/greenring
 CMD ["/greenring"]
