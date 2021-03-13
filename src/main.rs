@@ -2,6 +2,7 @@ use std::convert::Infallible;
 use std::net::SocketAddr;
 use hyper::{Body, Request, Response, Server};
 use hyper::service::{make_service_fn, service_fn};
+use std::env;
 
 async fn hello_world(_req: Request<Body>) -> Result<Response<Body>, Infallible> {
     Ok(Response::new("Hello, World".into()))
@@ -9,8 +10,11 @@ async fn hello_world(_req: Request<Body>) -> Result<Response<Body>, Infallible> 
 
 #[tokio::main]
 async fn main() {
+
+    let port = env::var_os("PORT").unwrap().to_str().unwrap().parse().unwrap();
+
     // We'll bind to 127.0.0.1:3000
-    let addr = SocketAddr::from(([127, 0, 0, 1], 8080));
+    let addr = SocketAddr::from(([127, 0, 0, 1], port));
 
     // A `Service` is needed for every connection, so this
     // creates one from our `hello_world` function.
