@@ -5,9 +5,13 @@
 # Exclude locally vendored dependencies.
 vendor/
 
+# Exclude local build
+target/
+
 # Exclude "build-time" ignore files.
 .dockerignore
 .gcloudignore
 
 # Exclude git history and configuration.
 .gitignore
+.git/
